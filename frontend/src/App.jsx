@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './index.css'
 
-const API_URL = "http://127.0.0.1:8001";
+const API_URL = "https://sololeveling-engine-abc1.onrender.com"; // Use your actual URL!
 
 function App() {
   const [player, setPlayer] = useState(null);
