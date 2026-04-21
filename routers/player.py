@@ -318,3 +318,13 @@ def claim_shadow():
     finally:
         cursor.close()
         conn.close()
+
+@router.get("/{name}")
+def get_player(name: str):
+    return {
+        "name": "Caz",
+        "level": 999,
+        "job_class": "System Architect",
+        "strength": 500,
+        "agility": 500
+    }
