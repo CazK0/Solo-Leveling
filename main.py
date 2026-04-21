@@ -11,9 +11,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-@app.get("/status")
-def system_status():
-    return {"status": "System Online"}
 
 app.include_router(player.router)
-

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './index.css'
 
-const API_URL = "https://solo-leveling-8obi.onrender.com" // Use your actual URL!
+const API_URL = "https://solo-leveling-8obi.onrender.com"
 
 function App() {
   const [player, setPlayer] = useState(null);
@@ -48,6 +48,7 @@ function App() {
       setAlertMsg("Quest Failed to Send.");
     }
   };
+
   const deployShadow = async () => {
     try {
       const response = await fetch(`${API_URL}/shadow/deploy`, {
@@ -70,7 +71,6 @@ function App() {
       const data = await response.json();
       setAlertMsg(data.System_Alert);
 
-      // If the shadow survived and brought back loot, refresh the stats!
       if (data.Success && data.Survived) {
           fetchStats();
       }
@@ -78,6 +78,7 @@ function App() {
       setAlertMsg("System Error: Failed to extract shadow.");
     }
   };
+
   const allocateStat = async (statName) => {
     try {
       const response = await fetch(`${API_URL}/system/allocate-stat?stat=${statName}`, { method: 'POST' });
@@ -207,7 +208,7 @@ function App() {
         </div>
 
         <div id="alert-box">{alertMsg}</div>
-        {/* --- SHADOW ARMY COMMAND CENTER --- */}
+
         <br />
         <h2 style={{ textAlign: 'center', margin: '10px 0', fontSize: '18px', color: '#9933ff', letterSpacing: '1px', textShadow: '0 0 5px #9933ff' }}>
           SHADOW ARMY

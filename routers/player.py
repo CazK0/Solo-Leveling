@@ -7,10 +7,8 @@ from datetime import datetime, timedelta, date
 
 router = APIRouter()
 
-
 class QuestPayLoad(BaseModel):
     quest_id: str
-
 
 class BuyPayLoad(BaseModel):
     item_name: str
@@ -30,12 +28,12 @@ SHOP_DATABASE = {
     "game": {"name": "1 Hr Video Games", "cost": 100},
     "cheat_meal": {"name": "Cheat Meal", "cost": 200}
 }
+
 RAID_CONFIG = {
     "scout_2h": {"hours": 2, "survival": 95, "name": "C-Rank Scout"},
     "grind_8h": {"hours": 8, "survival": 70, "name": "B-Rank Grind"},
     "boss_24h": {"hours": 24, "survival": 40, "name": "S-Rank Boss Raid"}
 }
-
 
 @router.get("/status")
 def get_status():
@@ -80,7 +78,6 @@ def get_status():
     finally:
         cursor.close()
         conn.close()
-
 
 @router.post("/quest/complete")
 def complete_quest(payload: QuestPayLoad):
@@ -137,7 +134,6 @@ def complete_quest(payload: QuestPayLoad):
         cursor.close()
         conn.close()
 
-
 @router.post("/shop/buy")
 def buy_item(payload: BuyPayLoad):
     item_key = payload.item_name
@@ -179,7 +175,6 @@ def buy_item(payload: BuyPayLoad):
         cursor.close()
         conn.close()
 
-
 @router.post("/system/allocate-stat")
 def allocate_stat(stat: str):
     valid_stats = ["strength", "agility", "intelligence", "perception"]
@@ -208,7 +203,6 @@ def allocate_stat(stat: str):
         cursor.close()
         conn.close()
 
-
 @router.post("/system/reset")
 def reset_system():
     conn = get_db_connection()
@@ -228,7 +222,6 @@ def reset_system():
         cursor.close()
         conn.close()
 
-
 @router.post("/shadow/deploy")
 def deploy_shadow(payload: DeployPayload):
     raid_key = payload.raid_type
@@ -239,13 +232,11 @@ def deploy_shadow(payload: DeployPayload):
     conn = get_db_connection()
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     try:
-        # Check if a shadow is already out there
         cursor.execute("SELECT * FROM shadow_expeditions WHERE player_name = 'Caz' AND status = 'mining';")
         active_raid = cursor.fetchone()
         if active_raid:
             return {"System_Alert": "A shadow is already deployed!", "Success": False}
 
-        # Time Travel Math
         now = datetime.now()
         return_time = now + timedelta(hours=raid['hours'])
 
@@ -260,7 +251,6 @@ def deploy_shadow(payload: DeployPayload):
     finally:
         cursor.close()
         conn.close()
-
 
 @router.post("/shadow/claim")
 def claim_shadow():
