@@ -216,6 +216,7 @@ def reset_system():
         """)
         cursor.execute("DELETE FROM inventory WHERE player_name = 'Caz';")
         cursor.execute("DELETE FROM daily_quests WHERE player_name = 'Caz';")
+        cursor.execute("DELETE FROM shadow_expeditions WHERE player_name = 'Caz';")
         conn.commit()
         return {"System_Alert": "SYSTEM HARD RESET COMPLETE.", "Success": True}
     finally:
